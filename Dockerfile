@@ -9,7 +9,7 @@ RUN apt-get update -y && apt-get --assume-yes install \
     build-essential unzip cmake git \
     # General dependencies
     libatlas-base-dev libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler \
-    # Remaining dependencies, 14.04
+    # Remaining dependencies
     libgflags-dev libgoogle-glog-dev liblmdb-dev \
     # Python libs
     libopencv-dev python-opencv python-pip python-dev python-numpy \
