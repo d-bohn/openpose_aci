@@ -4,15 +4,14 @@ in Docker Hub and modifying it with Singularity Hub for use with PSU
 ACI HPC clusters.
 
 ## Quick Start
-## Quick Start
 `ssh` into the PSU ACI HPC with X11 flags.
 
 ```
 ssh USERID@aci-b.aci.ics.psu.edu -X -Y
 ```
 
-Start an interactive session using `qsub`. We need a lot of memory for the CPU version
-of OpenPose
+Start an interactive session using `qsub`. We need a lot of memory for
+the CPU version of OpenPose
 
 ```
 qsub -A open -I -X -l walltime=24:00:00 -l nodes=5:ppn=10 -l pmem=20gb
@@ -54,8 +53,6 @@ from the docker image, as well as adding access to folders within ACI,  specific
 mkdir -p /storage/home
 mkdir -p /storage/work
 mkdir -p /gpfs/group
-mkdir -p /gpfs/scratch
-mkdir -p /var/spool/torque
 ```
 
 ## Notes
@@ -64,5 +61,5 @@ mkdir -p /var/spool/torque
   - The current image is built with only CPU support, but can easily be adapted to
   include GPU support when that is available (see first two `make` flags in `Dockerfile`)
 
-  - The CPU version is SLOW. The example above takes several minutes to execute. Runs at between
-  0.3 and 0.1 frames/second.
+  - The CPU version is SLOW. The example above takes several minutes to
+  execute. Runs at between 0.3 and 0.1 frames/second.
