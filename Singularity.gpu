@@ -1,5 +1,5 @@
 BOOTSTRAP: docker
-FROM: dalbohn/openpose_aci
+FROM: dalbohn/openpose_aci:gpu
 
 %labels
 MAINTAINER Daniel Albohn <d.albohn@gmail.com>
