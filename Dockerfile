@@ -7,12 +7,11 @@ LABEL maintainer="Daniel Albohn <d.albohn@gmail.com>"
 
 RUN apt-get update -y && apt-get --assume-yes install \
     build-essential unzip cmake git \
-    # General dependencies
-    libatlas-base-dev libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler \
-    # Remaining dependencies
-    libgflags-dev libgoogle-glog-dev liblmdb-dev \
-    # Python libs
-    libopencv-dev \
+    libatlas-base-dev libprotobuf-dev \
+    libleveldb-dev libsnappy-dev \
+    libhdf5-serial-dev protobuf-compiler \
+    libgflags-dev libgoogle-glog-dev \
+    liblmdb-dev libopencv-dev \
     libeigen3-dev libviennacl-dev \
     doxygen wget libboost-all-dev
 
@@ -33,9 +32,6 @@ RUN cp /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthreads.s
 
 # download openpose
 RUN cd /opt && \
-    # wget -O openpose.zip https://github.com/CMU-Perceptual-Computing-Lab/openpose/archive/master.zip && \
-    # unzip openpose.zip && \
-    # rm -f openpose.zip
     git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
 
 # compile openpose
