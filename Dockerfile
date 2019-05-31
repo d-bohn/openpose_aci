@@ -42,5 +42,5 @@ RUN cd /opt/openpose && \
       -DDOWNLOAD_BODY_COCO_MODEL=ON \
       -DDOWNLOAD_BODY_MPI_MODEL=ON \
       -DDOWNLOAD_HAND_MODEL=ON \
-      -DBUILD_PYTHON=ON .. / && \
+      -DBUILD_PYTHON=ON .. && \
     make all -j"$(nproc)"
