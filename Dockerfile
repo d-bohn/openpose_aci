@@ -1,47 +1,37 @@
 # inspired by https://gist.github.com/sberryman/6770363f02336af82cb175a83b79de33
 # https://gist.github.com/moiseevigor/11c02c694fc0c22fccd59521793aeaa6
+# https://github.com/esemeniuc/openpose-docker/blob/master/Dockerfile
 
-FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
-LABEL maintainer="Daniel Albohn <d.albohn@gmail.com>"
+RUN DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -y && apt-get --assume-yes install \
-    build-essential unzip cmake git \
-    libatlas-base-dev libprotobuf-dev \
-    libleveldb-dev libsnappy-dev \
-    libhdf5-serial-dev protobuf-compiler \
-    libgflags-dev libgoogle-glog-dev \
-    liblmdb-dev libopencv-dev \
-    libeigen3-dev libviennacl-dev \
-    doxygen wget libboost-all-dev
+#get deps
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3-dev python3-pip \
+    git g++ wget make \
+    libprotobuf-dev protobuf-compiler \
+    libopencv-dev libgoogle-glog-dev \
+    libboost-all-dev \
+    libhdf5-dev libatlas-base-dev
 
-# RUN add-apt-repository ppa:deadsnakes/ppa && \
-#     apt-get -y update && \
-#     apt-get --assume-yes install \
-#     python3.6 \
-#     libopencv-dev \
-#     python-opencv
-#
-# RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-#     python3.6 get-pip.py
-#
-# RUN pip3 install --upgrade numpy scipy protobuf pandas
-# RUN pip3 install opencv-python
+RUN pip3 install numpy opencv-python
 
-RUN cp /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthreads.so
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
+tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
+rm cmake-3.14.2-Linux-x86_64.tar.gz
+ENV PATH="/opt/cmake-3.14.2-Linux-x86_64/bin:${PATH}"
 
 # download openpose
 RUN cd /opt && \
     git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
 
 # compile openpose
-
-ENV OPENPOSE_ROOT /opt/openpose
 RUN cd /opt/openpose && \
     git submodule init && \
     git submodule update --remote
 
-# First two flags added for ACI without GPU support
 RUN cd /opt/openpose && \
     mkdir -p build && cd build && \
     cmake \
@@ -52,5 +42,5 @@ RUN cd /opt/openpose && \
       -DDOWNLOAD_BODY_COCO_MODEL=ON \
       -DDOWNLOAD_BODY_MPI_MODEL=ON \
       -DDOWNLOAD_HAND_MODEL=ON \
-      -DBUILD_PYTHON=ON ../ && \
+      -DBUILD_PYTHON=ON .. / && \
     make all -j"$(nproc)"
