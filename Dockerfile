@@ -16,18 +16,8 @@ RUN apt-get update -y && apt-get --assume-yes install \
     libeigen3-dev libviennacl-dev \
     doxygen wget libboost-all-dev
 
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get -y update && \
-    apt-get --assume-yes install \
-    python3.6 \
-    libopencv-dev \
-    python-opencv
-
-RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
-  python3.6 get-pip.py
-
-RUN pip3 install --upgrade numpy scipy protobuf pandas
-RUN pip3 install opencv-python
+RUN pip install --upgrade numpy scipy protobuf pandas
+RUN pip install opencv-python
 
 RUN cp /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthreads.so
 
