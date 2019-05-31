@@ -5,19 +5,19 @@ FROM ubuntu:16.04
 
 LABEL maintainer="Daniel Albohn <d.albohn@gmail.com>"
 
+RUN DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update -y && apt-get --assume-yes install \
     build-essential unzip cmake git \
-    # General dependencies
-    libatlas-base-dev libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler \
-    # Remaining dependencies
+    libatlas-base-dev libprotobuf-dev libleveldb-dev \
+    libsnappy-dev libhdf5-serial-dev protobuf-compiler \
     libgflags-dev libgoogle-glog-dev liblmdb-dev \
-    # Python libs
-    libopencv-dev python-opencv python-pip python-dev python-numpy \
+    libopencv-dev python3-pip python3-dev \
     libeigen3-dev libviennacl-dev \
     doxygen wget libboost-all-dev
 
-RUN pip install --upgrade numpy scipy protobuf pandas
-RUN pip install opencv-python
+RUN pip3 install --upgrade numpy scipy protobuf pandas
+RUN pip3 install opencv-python
 
 RUN cp /lib/x86_64-linux-gnu/libpthread.so.0 /lib/x86_64-linux-gnu/libpthreads.so
 
