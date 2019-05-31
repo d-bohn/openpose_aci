@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3-dev python3-pip \
-    git g++ wget make \
+    git g++ wget make cmake \
     libprotobuf-dev protobuf-compiler \
     libopencv-dev libgoogle-glog-dev \
     libboost-all-dev \
@@ -18,10 +18,10 @@ RUN apt-get update && \
 
 RUN pip3 install numpy opencv-python
 
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
-tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
-rm cmake-3.14.2-Linux-x86_64.tar.gz
-ENV PATH="/opt/cmake-3.14.2-Linux-x86_64/bin:${PATH}"
+# RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
+# tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
+# rm cmake-3.14.2-Linux-x86_64.tar.gz
+# ENV PATH="/opt/cmake-3.14.2-Linux-x86_64/bin:${PATH}"
 
 # download openpose
 RUN cd /opt && \
