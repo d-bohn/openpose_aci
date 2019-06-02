@@ -2,7 +2,7 @@
 # https://gist.github.com/moiseevigor/11c02c694fc0c22fccd59521793aeaa6
 # https://github.com/esemeniuc/openpose-docker/blob/master/Dockerfile
 
-FROM nvidia/cuda:9.1-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu16.04
 
 RUN DEBIAN_FRONTEND=noninteractive
 
