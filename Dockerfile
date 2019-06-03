@@ -2,7 +2,8 @@
 # https://gist.github.com/moiseevigor/11c02c694fc0c22fccd59521793aeaa6
 # https://github.com/esemeniuc/openpose-docker/blob/master/Dockerfile
 
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
+#base image: nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
+FROM blvc/caffe:gpu
 
 RUN DEBIAN_FRONTEND=noninteractive
 
@@ -16,6 +17,7 @@ RUN apt-get update && \
     libboost-all-dev \
     libhdf5-dev libatlas-base-dev
 
+RUN cp -ruax /opt/caffe/build/include/caffe/proto/ /opt/caffe/include/caffe
 RUN pip3 install numpy opencv-python
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
@@ -23,11 +25,19 @@ tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
 rm cmake-3.14.2-Linux-x86_64.tar.gz
 ENV PATH="/opt/cmake-3.14.2-Linux-x86_64/bin:${PATH}"
 
+#install nvidia drivers for the aci gpus
+RUN add-apt-repository -y ppa:graphics-drivers/ppa
+RUN apt-get install -y nvidia-390-dev
+
 # download openpose
 RUN cd /opt && \
-    git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
+    wget -O openpose.zip https://github.com/CMU-Perceptual-Computing-Lab/openpose/archive/v1.5.0.zip && \
+    unzip openpose.zip && \
+    rm -f openpose.zip && \
+    mv openpose-1.5.0 openpose
 
 # compile openpose
+ENV OPENPOSE_ROOT=/opt/openpose/
 RUN cd /opt/openpose && \
     git submodule init && \
     git submodule update --remote
@@ -36,11 +46,13 @@ RUN cd /opt/openpose && \
     mkdir -p build && cd build && \
     cmake \
       -DCMAKE_BUILD_TYPE="Release" \
-      -DBUILD_CAFFE=ON \
+      -DBUILD_CAFFE=OFF \
       -DBUILD_EXAMPLES=ON \
       -DDOWNLOAD_BODY_25_MODEL=ON \
       -DDOWNLOAD_BODY_COCO_MODEL=ON \
       -DDOWNLOAD_BODY_MPI_MODEL=ON \
       -DDOWNLOAD_HAND_MODEL=ON \
+      -DCaffe_INCLUDE_DIRS="/opt/caffe/include" \
+      -DCaffe_LIBS="/opt/caffe/build/lib/libcaffe.so" \
       -DBUILD_PYTHON=ON .. / && \
     make all -j"$(nproc)"

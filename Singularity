@@ -9,3 +9,5 @@ MAINTAINER Daniel Albohn <d.albohn@gmail.com>
 mkdir -p /storage/home
 mkdir -p /storage/work
 mkdir -p /gpfs/group
+mkdir -p /gpfs/scratch
+mkdir -p /var/spool/torque
