@@ -3,7 +3,8 @@
 # https://github.com/esemeniuc/openpose-docker/blob/master/Dockerfile
 
 #base image: nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
-FROM blvc/caffe:gpu
+#FROM blvc/caffe:gpu
+FROM nvidia/cuda:10.0-cudnn7-devel
 
 RUN DEBIAN_FRONTEND=noninteractive
 
@@ -15,7 +16,8 @@ RUN apt-get update && \
     libprotobuf-dev protobuf-compiler \
     libopencv-dev libgoogle-glog-dev \
     libboost-all-dev \
-    libhdf5-dev libatlas-base-dev
+    libhdf5-dev libatlas-base-dev \
+    software-properties-common unzip
 
 RUN cp -ruax /opt/caffe/build/include/caffe/proto/ /opt/caffe/include/caffe
 RUN pip3 install numpy opencv-python
@@ -30,11 +32,14 @@ RUN add-apt-repository -y ppa:graphics-drivers/ppa
 RUN apt-get install -y nvidia-390-dev
 
 # download openpose
-RUN cd /opt && \
-    wget -O openpose.zip https://github.com/CMU-Perceptual-Computing-Lab/openpose/archive/v1.5.0.zip && \
-    unzip openpose.zip && \
-    rm -f openpose.zip && \
-    mv openpose-1.5.0 openpose
+#RUN cd /opt && \
+#    wget -O openpose.zip https://github.com/CMU-Perceptual-Computing-Lab/openpose/archive/v1.5.0.zip && \
+#    unzip openpose.zip && \
+#    rm -f openpose.zip && \
+#    mv openpose-1.5.0 openpose
+
+RUN cd /opt && \ 
+    git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
 
 # compile openpose
 ENV OPENPOSE_ROOT=/opt/openpose/
@@ -46,13 +51,11 @@ RUN cd /opt/openpose && \
     mkdir -p build && cd build && \
     cmake \
       -DCMAKE_BUILD_TYPE="Release" \
-      -DBUILD_CAFFE=OFF \
+      -DBUILD_CAFFE=ON \
       -DBUILD_EXAMPLES=ON \
       -DDOWNLOAD_BODY_25_MODEL=ON \
       -DDOWNLOAD_BODY_COCO_MODEL=ON \
       -DDOWNLOAD_BODY_MPI_MODEL=ON \
       -DDOWNLOAD_HAND_MODEL=ON \
-      -DCaffe_INCLUDE_DIRS="/opt/caffe/include" \
-      -DCaffe_LIBS="/opt/caffe/build/lib/libcaffe.so" \
       -DBUILD_PYTHON=ON .. / && \
     make all -j"$(nproc)"
