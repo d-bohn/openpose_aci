@@ -23,8 +23,9 @@ RUN cp -ruax /opt/caffe/build/include/caffe/proto/ /opt/caffe/include/caffe
 RUN pip3 install numpy opencv-python
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
-tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
-rm cmake-3.14.2-Linux-x86_64.tar.gz
+    tar xzf cmake-3.14.2-Linux-x86_64.tar.gz -C /opt && \
+    rm cmake-3.14.2-Linux-x86_64.tar.gz
+
 ENV PATH="/opt/cmake-3.14.2-Linux-x86_64/bin:${PATH}"
 
 #install nvidia drivers for the aci gpus
@@ -38,7 +39,7 @@ RUN apt-get install -y nvidia-390-dev
 #    rm -f openpose.zip && \
 #    mv openpose-1.5.0 openpose
 
-RUN cd /opt && \ 
+RUN cd /opt && \
     git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
 
 # compile openpose
