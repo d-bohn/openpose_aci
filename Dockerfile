@@ -6,7 +6,7 @@
 #FROM blvc/caffe:gpu
 FROM nvidia/cuda:10.0-cudnn7-devel
 
-RUN DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 #get deps
 RUN apt-get update && \
