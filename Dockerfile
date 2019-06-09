@@ -19,7 +19,7 @@ RUN apt-get update && \
     libhdf5-dev libatlas-base-dev \
     software-properties-common unzip
 
-RUN cp -ruax /opt/caffe/build/include/caffe/proto/ /opt/caffe/include/caffe
+# RUN cp -ruax /opt/caffe/build/include/caffe/proto/ /opt/caffe/include/caffe
 RUN pip3 install numpy opencv-python
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.2/cmake-3.14.2-Linux-x86_64.tar.gz && \
