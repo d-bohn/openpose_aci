@@ -4,7 +4,7 @@
 
 #base image: nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 #FROM blvc/caffe:gpu
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -40,7 +40,9 @@ RUN apt-get install -y nvidia-390-dev
 #    mv openpose-1.5.0 openpose
 
 RUN cd /opt && \
-    git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose
+    git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose && \
+    cd openpose && \
+    git checkout 123cb64750c81e9c396fdd2d502a92a319d848a0
 
 # compile openpose
 ENV OPENPOSE_ROOT=/opt/openpose/
