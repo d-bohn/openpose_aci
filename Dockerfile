@@ -42,7 +42,8 @@ RUN apt-get install -y nvidia-390-dev
 RUN cd /opt && \
     git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose && \
     cd openpose && \
-    git checkout 123cb64750c81e9c396fdd2d502a92a319d848a0
+    git checkout 123cb64750c81e9c396fdd2d502a92a319d848a0  
+#openpose version 1.4
 
 # compile openpose
 ENV OPENPOSE_ROOT=/opt/openpose/

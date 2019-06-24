@@ -4,6 +4,10 @@ FROM: dalbohn/openpose_aci:gpu
 %labels
 MAINTAINER Daniel Albohn <d.albohn@gmail.com>
 
+%runscript
+    cd /opt/openpose
+    exec /build/examples/openpose/openpose.bin "$@"
+
 %post
 # ACI mappings so you can access your files
 mkdir -p /storage/home
