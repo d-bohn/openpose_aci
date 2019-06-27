@@ -3,6 +3,9 @@ Code and workflow for building [OpenPose](https://github.com/CMU-Perceptual-Comp
 in Docker Hub and modifying it with Singularity Hub for use with PSU
 ACI HPC clusters.
 
+**NOTE**: This is the GPU version of OpenPose, for the CPU-only version please
+refer to the appropriately labelled branch.
+
 ## Quick Start
 `ssh` into the PSU ACI HPC with X11 flags.
 
