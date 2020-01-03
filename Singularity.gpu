@@ -14,8 +14,8 @@ From: exsidius/openpose
     #need to install correct gpu drivers
     # install nvidia driver (current system version: 390.30)
     # add-apt-repository ppa:graphics-drivers
-    apt-get update --fix-missing
-    apt-get install -y nvidia-390-dev
+    # apt-get update --fix-missing
+    # apt-get install -y nvidia-390-dev
 
     #------------------------------------------------------------------------------
     # Create local binding points for our ICS-ACI
