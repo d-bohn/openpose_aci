@@ -8,12 +8,12 @@ From: exsidius/openpose
 
 %post
     # apt-get update --fix-missing
-    apt-get install software-properties-common
-    apt-get update
+    # apt-get install software-properties-common
+    # apt-get update
     
     #need to install correct gpu drivers
     # install nvidia driver (current system version: 390.30)
-    add-apt-repository ppa:graphics-drivers
+    # add-apt-repository ppa:graphics-drivers
     apt-get update
     apt-get install -y nvidia-390-dev
 
