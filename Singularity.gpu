@@ -7,14 +7,14 @@ From: exsidius/openpose
 %environment
 
 %post
-    apt-get update --fix-missing
-    apt-get install -y software-properties-common
-    apt-get update
+    # apt-get update --fix-missing
+    # apt-get install -y software-properties-common
+    # apt-get update
     
     #need to install correct gpu drivers
     # install nvidia driver (current system version: 390.30)
-    add-apt-repository -y ppa:graphics-drivers/ppa
-    apt-get install -y nvidia-390-dev
+    # add-apt-repository -y ppa:graphics-drivers/ppa
+    # apt-get install -y nvidia-390-dev
 
     #------------------------------------------------------------------------------
     # Create local binding points for our ICS-ACI
