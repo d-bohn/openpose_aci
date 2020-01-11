@@ -3,8 +3,8 @@
 # https://github.com/esemeniuc/openpose-docker/blob/master/Dockerfile
 
 #base image: nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
-#FROM blvc/caffe:gpu
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+# FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -41,8 +41,9 @@ RUN apt-get install -y nvidia-390-dev
 
 RUN cd /opt && \
     git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose && \
-    cd openpose && \
-    git checkout 123cb64750c81e9c396fdd2d502a92a319d848a0  
+    cd openpose
+
+# git checkout 123cb64750c81e9c396fdd2d502a92a319d848a0  
 #openpose version 1.4
 
 # compile openpose
