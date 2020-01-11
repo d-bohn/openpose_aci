@@ -4,7 +4,8 @@
 
 #base image: nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 #FROM blvc/caffe:gpu
-FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+# FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
